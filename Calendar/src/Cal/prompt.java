@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 class Prompt {
-	private Scanner scan = new Scanner(System.in);
+	private Scanner scan;
 	private HashMap<Date, String> planMap;
 	
 	public Prompt() {
@@ -16,6 +16,8 @@ class Prompt {
 
 	public void StartCalendar() {
 		while (true) {
+			scan = new Scanner(System.in);
+			
 			System.out.println("+----------------------+");
 			System.out.println("| 1. 일정 등록");
 			System.out.println("| 2. 일정 검색");
@@ -111,40 +113,49 @@ class Prompt {
 	}
 	
 	// 일정입력
-	public void ScheduleRegistration() {
+	private void ScheduleRegistration() {
+		scan = new Scanner(System.in).useDelimiter("\n");
 		
 		System.out.println("[일정 등록] 날짜를 입력하세요.");
 		System.out.print("(yyyy-MM-dd) : ");
 		String date = scan.next();
 		
 		System.out.println("일정을 입력해 주세요.");
-		String plan = scan.next();
-
+		String plan = ""; 
+		
+		plan = scan.next();		
+		
+		SaveSchedule(date, plan);
+	}
+	
+	private void SaveSchedule(String d, String plan){
 		try {
-			Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-			planMap.put(date1, plan);
+			Date date = new SimpleDateFormat("yyyy-MM-dd").parse(d);
+			planMap.put(date, plan);
 		} catch (ParseException e) {
 			e.printStackTrace();
 			System.out.println("날짜를 잘 못 입력하셨습니다.");
 		}
 	}
 	
-
-	public void ScheduleSearch() {
+	private void ScheduleSearch() {
+		scan = new Scanner(System.in);
+		
 		System.out.println("[일정 검색] 날짜를 입력하세요.");
 		System.out.print("(yyyy-MM-dd) : ");
 		String date = scan.next();
 		
-		search(date);
+		Search(date);
 	}
 
-	public void search(String d) {
+	private void Search(String d) {
 		try {
 			Date date;
-			date = new SimpleDateFormat("yyyy-mm-dd").parse(d);
+			date = new SimpleDateFormat("yyyy-MM-dd").parse(d);
 			String plan = planMap.get(date);
 
-			System.out.println(plan);
+			if(plan != null) System.out.println("\n" + plan + "\n");
+			else System.out.println("\n일정이 없습니다.\n");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
