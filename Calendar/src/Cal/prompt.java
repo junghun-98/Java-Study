@@ -18,13 +18,13 @@ class Prompt {
 		while (true) {
 			scan = new Scanner(System.in);
 			
-			System.out.println("+----------------------+");
-			System.out.println("| 1. 일정 등록");
-			System.out.println("| 2. 일정 검색");
-			System.out.println("| 3. 달력 보기");
-			System.out.println("| q. 종료");
-			System.out.println("+----------------------+");
-			System.out.println("명령 (1, 2, 3, q)");
+			System.out.println("+-------------------------+");
+			System.out.println("| 1. Schedule Registration");
+			System.out.println("| 2. Schedule Search");
+			System.out.println("| 3. Show Calendar");
+			System.out.println("| q. Quit");
+			System.out.println("+-------------------------+");
+			System.out.println("Command (1, 2, 3, q)");
 
 			String order;
 			order = scan.next();
@@ -38,7 +38,7 @@ class Prompt {
 			else if (order.equals("q"))
 				break;
 			else
-				System.out.println("다시 입력하세요.");
+				System.out.println("Please re-enter");
 		}
 	}
 
@@ -68,7 +68,7 @@ class Prompt {
 		day = getDay(m, y);
 		count = FirstWeek(m, y);
 
-		System.out.printf("   <<%4d년%3d월>>\n", y, m);
+		System.out.printf("   <<%4dY%3dM>>\n", y, m);
 		System.out.println("---------------------");
 		System.out.println(" SU MO TU WE TH FR SR");
 
@@ -116,11 +116,11 @@ class Prompt {
 	private void ScheduleRegistration() {
 		scan = new Scanner(System.in).useDelimiter("\n");
 		
-		System.out.println("[일정 등록] 날짜를 입력하세요.");
+		System.out.println("[Schedule Registration] Input Date.");
 		System.out.print("(yyyy-MM-dd) : ");
 		String date = scan.next();
 		
-		System.out.println("일정을 입력해 주세요.");
+		System.out.println("Input your schedule");
 		String plan = ""; 
 		
 		plan = scan.next();		
@@ -134,14 +134,14 @@ class Prompt {
 			planMap.put(date, plan);
 		} catch (ParseException e) {
 			e.printStackTrace();
-			System.out.println("날짜를 잘 못 입력하셨습니다.");
+			System.out.println("You entered the wrong date.");
 		}
 	}
 	
 	private void ScheduleSearch() {
 		scan = new Scanner(System.in);
 		
-		System.out.println("[일정 검색] 날짜를 입력하세요.");
+		System.out.println("[Schedule Search] Input Date.");
 		System.out.print("(yyyy-MM-dd) : ");
 		String date = scan.next();
 		
@@ -155,7 +155,7 @@ class Prompt {
 			String plan = planMap.get(date);
 
 			if(plan != null) System.out.println("\n" + plan + "\n");
-			else System.out.println("\n일정이 없습니다.\n");
+			else System.out.println("\nNo schedule.\n");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -167,14 +167,14 @@ class Prompt {
 		Scanner scan = new Scanner(System.in);
 		int month, year;
 
-		System.out.print("연도를 입력하세요\nYEAR>");
+		System.out.print("Input Year\nYEAR>");
 		year = scan.nextInt();
 
-		System.out.print("월을 입력하세요\nMONTH>");
+		System.out.print("Input Month\nMONTH>");
 		month = scan.nextInt();
 
 		if (month < 1 || month > 12) {
-			System.out.println("해당 월은 존재 하지 않습니다.");
+			System.out.println("Invalid Month.");
 			return;
 		}
 
